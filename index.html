@@ -28,27 +28,26 @@
     </div>
 
     <script>
-        // Extract PO number and date from URL parameters (e.g., ?po=PO-123&date=2026-06-27)
+        // Extract PO number and date from URL parameters
         const urlParams = new URLSearchParams(window.location.search);
         const poNumber = urlParams.get('po') || 'UNKNOWN';
         const poDate = urlParams.get('date') || '';
+
+        // Clean PO number exactly like Excel filename encoding
+        let cleanPO = poNumber.trim().replace(/[\/\\]/g, '-');
 
         if(poNumber !== 'UNKNOWN') {
             document.getElementById('poDisplay').innerText = "PO Number: " + poNumber;
         }
 
-        // Your exact static OneDrive shared folder tracking link
-        const baseOneDriveLink = "https://1drv.ms/f/c/2a1cfae2f300c2db/IgDD1iSnkwboRoNvI6Axv1BvAcSPebl7bs1qCzqg8BBLRI4?e=QUdUG7";
-
-        // Dynamic routing handler: Routes user straight to the dedicated PDF inside OneDrive
+        // Dynamic routing handler: Routes user straight to the dedicated PDF on GitHub Pages!
         document.getElementById('downloadBtn').addEventListener('click', function(e) {
-            // If PO is known, we can direct them, otherwise fallback to standard shared directory
             if(poNumber !== 'UNKNOWN') {
-                // Since OneDrive individual file direct links need app authentication, 
-                // we safely land them in the synchronized folder to select their target document instantly.
-                window.location.href = baseOneDriveLink;
+                // Perfect targeted direct link to the specific PDF on your host!
+                const pdfUrlName = "CheckSheet_PO_" + cleanPO + "_" + poDate + ".pdf";
+                window.location.href = pdfUrlName;
             } else {
-                window.location.href = baseOneDriveLink;
+                alert("No PO Number identified. Please re-scan the official QR Code.");
             }
             e.preventDefault();
         });
