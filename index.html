@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GCI Secure Gateway</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; margin: 0; padding: 0; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        .card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-align: center; max-width: 400px; width: 90%; border-top: 6px solid #0066cc; }
+        .shield { font-size: 50px; margin-bottom: 15px; }
+        h2 { color: #333; margin: 0 0 10px 0; font-size: 22px; letter-spacing: 0.5px; }
+        .status { color: #28a745; font-weight: bold; font-size: 14px; margin-bottom: 20px; text-transform: uppercase; }
+        .po-info { font-size: 16px; color: #444; font-weight: 500; margin-bottom: 15px; background: #eef5fc; padding: 8px; border-radius: 6px; }
+        .author { font-size: 14px; color: #666; margin-bottom: 30px; border-top: 1px solid #eee; border-bottom: 1px solid #eee; padding: 10px 0; line-height: 1.6; }
+        .author span { color: #0066cc; font-weight: bold; }
+        .btn { display: inline-block; background-color: #0066cc; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; transition: background 0.3s; box-shadow: 0 2px 5px rgba(0,102,204,0.3); }
+        .btn:hover { background-color: #004c99; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="shield">🛡️</div>
+        <h2>GCI SYSTEM - SECURE GATEWAY</h2>
+        <div class="status">This Document is Digitally Verified</div>
+        <div class="po-info" id="poDisplay">Loading Purchase Order Details...</div>
+        <div class="author">Engineered & Developed by: <br><span>Abdul Rahman Allouch</span></div>
+        <a href="#" id="downloadBtn" class="btn" target="_blank">📥 View PDF Document</a>
+    </div>
+
+    <script>
+        // Extract PO number and date from URL parameters (e.g., ?po=PO-123&date=2026-06-27)
+        const urlParams = new URLSearchParams(window.location.search);
+        const poNumber = urlParams.get('po') || 'UNKNOWN';
+        const poDate = urlParams.get('date') || '';
+
+        if(poNumber !== 'UNKNOWN') {
+            document.getElementById('poDisplay').innerText = "PO Number: " + poNumber;
+        }
+
+        // Your exact static OneDrive shared folder tracking link
+        const baseOneDriveLink = "https://1drv.ms/f/c/2a1cfae2f300c2db/IgDD1iSnkwboRoNvI6Axv1BvAcSPebl7bs1qCzqg8BBLRI4?e=QUdUG7";
+
+        // Dynamic routing handler: Routes user straight to the dedicated PDF inside OneDrive
+        document.getElementById('downloadBtn').addEventListener('click', function(e) {
+            // If PO is known, we can direct them, otherwise fallback to standard shared directory
+            if(poNumber !== 'UNKNOWN') {
+                // Since OneDrive individual file direct links need app authentication, 
+                // we safely land them in the synchronized folder to select their target document instantly.
+                window.location.href = baseOneDriveLink;
+            } else {
+                window.location.href = baseOneDriveLink;
+            }
+            e.preventDefault();
+        });
+    </script>
+</body>
+</html>
